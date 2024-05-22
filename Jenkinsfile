@@ -32,18 +32,21 @@ pipeline {
             }
         }
         
-       // stage('Test') {
-           // steps {
+        // Commenter les tests unitaires pour l'instant, décommentez-les si nécessaire
+        /*
+        stage('Test') {
+            steps {
                 // Exécuter les tests unitaires
-               // bat 'npm test -- --watch=false --code-coverage'
-           // }
-           // post {
-                //always {
+                bat 'npm test -- --watch=false --code-coverage'
+            }
+            post {
+                always {
                     // Publier les rapports de couverture de code
-                    //publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Code Coverage'])
-                //}
-           // }
-        //}
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Code Coverage'])
+                }
+            }
+        }
+        */
 
         stage('SonarQube Analysis') {
             steps {
@@ -90,8 +93,10 @@ pipeline {
 
     post {
         always {
-            // Actions à exécuter toujours après le pipeline
-            cleanWs()
+            // Assurez-vous que cleanWs est exécuté dans un bloc node
+            node {
+                cleanWs()
+            }
         }
         success {
             // Actions à exécuter en cas de succès
