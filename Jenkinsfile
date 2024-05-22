@@ -10,6 +10,16 @@ pipeline {
         DOCKER_TAG = 'latest'
     }
 
+    options {
+        // Envelopper toutes les étapes du pipeline avec le contexte approprié
+        timeout(time: 1, unit: 'HOURS')
+        timestamps()
+        retry(3)
+        skipStagesAfterUnstable()
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+        disableConcurrentBuilds()
+    }
+
     stages {
         stage('Checkout') {
             steps {
