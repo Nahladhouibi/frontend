@@ -104,7 +104,9 @@ pipeline {
     post {
         always {
             // Actions à exécuter toujours après le pipeline
-            cleanWs()
+            script {
+                cleanWs()
+            }
         }
         success {
             // Actions à exécuter en cas de succès
