@@ -93,10 +93,8 @@ pipeline {
 
     post {
         always {
-            // Assurez-vous que cleanWs est exécuté dans un bloc node
-            node {
-                cleanWs()
-            }
+            // Actions à exécuter toujours après le pipeline
+            cleanWs()
         }
         success {
             // Actions à exécuter en cas de succès
