@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         // Définir les variables d'environnement pour SonarQube et Docker Hub
-        SONARQUBE_URL = 'https://sonarqube.yourdomain.com'
-        SONARQUBE_TOKEN = credentials('sonarqube-token')
+        SONARQUBE_URL = 'http://localhost:9000'
+        SONARQUBE_TOKEN = credentials('frontend')
         DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials')
         DOCKER_IMAGE = 'Chronocare1'
         DOCKER_TAG = 'latest'
@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Cloner le code source du dépôt Git
-                git 'https://github.com/your-repo/your-project.git'
+                git 'https://github.com/Nahladhouibi/frontend.git'
             }
         }
         
