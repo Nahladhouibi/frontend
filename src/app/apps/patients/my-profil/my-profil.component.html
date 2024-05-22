@@ -1,0 +1,150 @@
+<div class="page-header has-tab">
+    <h2 class="font-weight-normal">Mon profil</h2>
+</div>
+<nz-tabset class="page-header-tab">
+    <nz-tab nzTitle="Account">
+        <div class="container">
+            <form [formGroup]="patientForm">
+            <nz-card nzTitle="Basic Infomation">
+                <div class="media align-items-center">
+                    <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
+                    <div class="m-l-20 m-r-20">
+                    </div>
+              
+                </div>
+                <hr class="m-v-25">
+              
+
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <nz-form-item>
+                            <nz-form-label>User Name</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="Username"  formControlName="username" >
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-6">
+                        <nz-form-item>
+                            <nz-form-label>Email</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="" type="email"  formControlName="email" >
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <nz-form-item>
+                            <nz-form-label>Phone Number</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="Phone Number"  formControlName="phone">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-form-item>
+                            <nz-form-label>Date of Birth</nz-form-label>
+                            <nz-form-control>
+                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" nzPlaceHolder="Date of Birth" formControlName="dateOfBirth"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-form-item>
+                            <nz-form-label>Sexe </nz-form-label>
+                            <nz-form-control>
+                                <nz-select class="w-100"  nzPlaceHolder="Sexe" formControlName="sexe">
+                                    <nz-option nzValue="Homme" nzLabel="Homme"></nz-option>
+                                    <nz-option nzValue="Femme" nzLabel="Femme"></nz-option>
+                                  
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </nz-card>
+       
+            <nz-card nzTitle="Address Details">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Full Address</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="Address" formControlName="address">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                
+            </nz-card>   
+        </form>   
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="Medical Historic">
+        <div class="container">
+            <div class="row">
+               
+                    <h5>historic medical ({{history.length}})</h5>
+                    <div class="m-t-20">
+                        <nz-list [nzDataSource]="history" [nzRenderItem]="review" [nzItemLayout]="'vertical'"  >
+                            <ng-template #review let-item>
+                                <nz-list-item class="d-block" [nzContent]="item.review" [nzActions]="[rating]">
+                                    
+                                    <nz-list-item-meta
+                                    [nzTitle]="item.healthcareProfessional + ' : ' + (item.createdAt | date:'dd-MM-yyyy')"
+                                    nzAvatar="assets/images/doc.jpg"
+                                        [nzDescription]="item.description ">
+                                        <ng-template #reviewTitle>
+                                            <a class="font-size-15" href="">{{item.healthcareProfessional}}</a>
+                                        </ng-template>
+                                    </nz-list-item-meta>
+                                </nz-list-item>
+                            </ng-template>
+                  
+                        </nz-list>
+                      
+                        <nz-form-control >
+                      
+                       </nz-form-control>
+    
+                    </div>
+                   
+       
+            </div>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="Notification">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <nz-card nzTitle="Notification Config">
+                        <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification" [nzItemLayout]="'horizontal'">
+                            <ng-template #notification let-item>
+                                <nz-list-item [nzActions]="[configStatus]">
+                                    <ng-template #configStatus>
+                                        <nz-switch [ngModel]="item.status" [nzCheckedChildren]="checkedTemplate2nd" [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
+                                        <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon nzType="check"></i></ng-template>
+                                        <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon nzType="close"></i></ng-template>
+                                    </ng-template>
+                                    <nz-list-item-meta
+                                        [nzTitle]="notificationTitle"
+                                        [nzAvatar]="notificationIcon">
+                                        <ng-template #notificationIcon>
+                                            <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color" class="m-t-5"></nz-avatar>
+                                        </ng-template>
+                                        <ng-template #notificationTitle>
+                                            <h5 class="font-weight-semibold m-b-0">{{item.title}}</h5>
+                                            <p class="m-b-0 font-weight-normal">{{item.desc}}</p>
+                                        </ng-template>
+                                    </nz-list-item-meta>
+                                </nz-list-item>
+                            </ng-template>
+                        </nz-list>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+    </nz-tab>
+</nz-tabset>

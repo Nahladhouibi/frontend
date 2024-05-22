@@ -1,0 +1,42 @@
+<div class="col-md-12 col-lg-12">
+    <nz-card>
+        <div class="d-flex justify-content-between align-items-center">
+            <h5>Top Product</h5>
+            <div>
+                <a nz-button nzType="default" nzSize="small">View All</a>
+            </div>
+        </div>
+        <div class="m-t-30">
+            <nz-table #patientTable [nzData]="patients" [nzShowPagination]="false" class="no-border-last">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Created At</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of patientTable.data">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                
+                                <span class="m-l-10">{{item.firstName}} </span>
+                            </div>
+                        </td>
+                        <td>{{item.lastName}}</td>
+                        <td>{{item.email}}</td>
+                         <td> {{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                         <td class="text-md-right">
+                            <a [routerLink]="['/apps/patient-details', item.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="View">
+                                <i nz-icon nzType="eye" theme="outline"></i>
+                            </a>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </nz-card>
+</div>
