@@ -93,8 +93,10 @@ pipeline {
 
     post {
         always {
-            // Actions à exécuter toujours après le pipeline
-            cleanWs()
+            // Encapsuler cleanWs() dans un bloc node
+            node {
+                cleanWs()
+            }
         }
         success {
             // Actions à exécuter en cas de succès
