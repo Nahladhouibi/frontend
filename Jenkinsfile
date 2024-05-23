@@ -105,7 +105,14 @@ pipeline {
         always {
             // Actions à exécuter toujours après le pipeline
             script {
-                cleanWs()
+                try {
+                    cleanWs()
+                } catch (Exception e) {
+                    // Gérer les exceptions
+                    echo "Failed to clean workspace: ${e.message}"
+                } finally {
+                    echo "Pipeline finished!"
+                }
             }
         }
         success {
